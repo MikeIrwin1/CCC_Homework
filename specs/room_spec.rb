@@ -8,7 +8,7 @@ require_relative( '../song' )
 class RoomsTest < MiniTest::Test
 
   def setup
-    @room = Room.new("The Twilight Zone")
+    @room = Room.new("The Twilight Zone", 5)
 
     @guest1 = Guest.new("Jeff")
     @guest2 = Guest.new("Mark")
@@ -28,12 +28,12 @@ class RoomsTest < MiniTest::Test
   end
 
   def test_room_has_guest__one_guest
-    @room.check_in(@guest)
-    assert_equal([@guest], @room.guests)
+    @room.check_in(@guest1)
+    assert_equal([@guest1], @room.guests)
   end
 
   def test_room_has_guest__multiple_guests
-    @room.check_in(@guests)
+    @room.check_in_group(@guests)
     assert_equal(4, @room.guests.length)
   end
 
@@ -49,7 +49,7 @@ class RoomsTest < MiniTest::Test
 
   def test_room_can_check_out
     # arrange
-    @room.check_in(@guests)
+    @room.check_in_group(@guests)
     # act
     @room.check_out(@guest1)
     # assert
@@ -63,6 +63,34 @@ class RoomsTest < MiniTest::Test
     @room.add_song(@song1)
     # assert
     assert_equal(4, @room.songs.length)
+  end
+
+  def test_room_has_capacity
+    assert_equal(5, @room.capacity)
+  end
+
+  def test_check_in__room_is_full
+    # arrange
+    small_room = Room.new("Tiny Room", 2)
+    # fill small room with 4 guests (capacity)
+    small_room.check_in(@guest1)
+    small_room.check_in(@guest2)
+    assert_equal("Sorry, the room is full", small_room.check_in(@guest3))
+  end
+
+  def test_check_in_group__no_room
+    # arrange
+    small_room = Room.new("Tiny Room", 3)
+    # assert
+    assert_equal("Sorry, the room is full", small_room.check_in_group(@guests))
+  end
+
+  def test_check_in_group__no_room_two
+    # arrange
+    small_room = Room.new("Tiny Room", 7)
+    small_room.check_in_group(@guests)
+    # assert
+    assert_equal("Sorry, the room is full", small_room.check_in_group(@guests))
   end
 
 end
