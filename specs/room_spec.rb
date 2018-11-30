@@ -10,10 +10,10 @@ class RoomsTest < MiniTest::Test
   def setup
     @room = Room.new("The Twilight Zone", 5)
 
-    @guest1 = Guest.new("Jeff")
-    @guest2 = Guest.new("Mark")
-    @guest3 = Guest.new("Stacy")
-    @guest4 = Guest.new("Jon")
+    @guest1 = Guest.new("Jeff", 30)
+    @guest2 = Guest.new("Mark", 40)
+    @guest3 = Guest.new("Stacy", 60)
+    @guest4 = Guest.new("Jon", 10)
 
     @song1 = Song.new("Hurt")
     @song2 = Song.new("Romeo")
@@ -91,6 +91,25 @@ class RoomsTest < MiniTest::Test
     small_room.check_in_group(@guests)
     # assert
     assert_equal("Sorry, the room is full", small_room.check_in_group(@guests))
+  end
+
+  def test_room_has_entry_fee
+    assert_equal(10, @room.entry_fee)
+  end
+
+  def test_guest_payments_taken
+    @room.check_in_group(@guests)
+    assert_equal(20,@guest1.wallet)
+  end
+
+  def test_money_has_been_earned
+    @room.check_in(@guest1)
+    assert_equal(10, @room.money_earned)
+  end
+
+  def test_money_has_been_earned_group
+    @room.check_in_group(@guests)
+    assert_equal(40, @room.money_earned)
   end
 
 end
