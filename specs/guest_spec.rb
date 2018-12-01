@@ -6,10 +6,10 @@ require_relative( '../guest' )
 class GuestTest < MiniTest::Test
 
   def setup
-    @guest1 = Guest.new("Jeff", 30)
-    @guest2 = Guest.new("Mark", 40)
-    @guest3 = Guest.new("Stacy", 60)
-    @guest4 = Guest.new("Jon", 10)
+    @guest1 = Guest.new("Jeff", 30, "Hurt")
+    @guest2 = Guest.new("Mark", 40, "Song 2")
+    @guest3 = Guest.new("Stacy", 60, "Romeo")
+    @guest4 = Guest.new("Jon", 10, "Heart of Courage")
   end
 
   def test_guest_has_name

@@ -10,10 +10,10 @@ class RoomsTest < MiniTest::Test
   def setup
     @room = Room.new("The Twilight Zone", 5)
 
-    @guest1 = Guest.new("Jeff", 30)
-    @guest2 = Guest.new("Mark", 40)
-    @guest3 = Guest.new("Stacy", 60)
-    @guest4 = Guest.new("Jon", 10)
+    @guest1 = Guest.new("Jeff", 30, "Hurt")
+    @guest2 = Guest.new("Mark", 40, "Song 2")
+    @guest3 = Guest.new("Stacy", 60, "Romeo")
+    @guest4 = Guest.new("Jon", 10, "Heart of Courage")
 
     @song1 = Song.new("Hurt")
     @song2 = Song.new("Romeo")
