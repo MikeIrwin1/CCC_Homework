@@ -24,4 +24,8 @@ class GuestTest < MiniTest::Test
    assert_equal(20, @guest1.enter_guest(10))
  end
 
+ def test_guest_has_favourite_song
+   assert_equal("Hurt", @guest1.favourite_song)
+ end
+
 end
