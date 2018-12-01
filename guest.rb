@@ -1,3 +1,4 @@
+require( 'pry' )
 class Guest
 
   attr_reader :name, :wallet, :favourite_song
@@ -11,5 +12,10 @@ class Guest
   def enter_guest(entry_fee)
     @wallet -= entry_fee
   end
+
+  def cheer_song(room)
+    "Wooo!" if room.songs.include?(@favourite_song)
+  end
+
 
 end
